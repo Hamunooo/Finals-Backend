@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::view('/', 'welcome');
 
@@ -12,4 +13,15 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+
+
+Route::middleware('admin')->group(function () {
+    Route::get('/admin-dashboard', function () { 
+        return "Admin Only";
+    });
+});
+
+
+Route::resource('users', UserController::class)->middleware('admin');
+
+require __DIR__ . '/auth.php';
