@@ -8,20 +8,30 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
 
-    <!-- Navbar -->
-    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-gray-800">🛒 E-Commerce System</h1>
-        <div class="flex items-center gap-4">
-            <span class="text-sm text-gray-600">
-                Logged in as: <strong>{{ Auth::user()->name }}</strong>
-                ({{ Auth::user()->role }})
+   <!-- Navbar -->
+<nav class="shadow px-6 py-4 flex justify-between items-center"
+     style="background-color: #043044;">
+    <div class="flex items-center gap-3">
+        <img src="{{ asset('images/logo.png') }}"
+             alt="Cartify"
+             class="w-10 h-10 object-contain">
+        <h1 class="text-xl font-bold" style="color: #33c432;">Cartify</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <span class="text-sm" style="color: #ffffff;">
+            {{ Auth::user()->name }}
+            <span class="text-xs px-2 py-1 rounded-full ml-1"
+                  style="background-color: #33c432; color: #ffffff;">
+                {{ Auth::user()->role }}
             </span>
-            <a href="{{ route('login') }}"
-                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm">
-                    Logout
-            </a>
-        </div>
-    </nav>
+        </span>
+        <a href="{{ route('login') }}"
+           class="px-4 py-2 rounded-lg text-sm font-medium"
+           style="background-color: #33c432; color: #ffffff;">
+            Logout
+        </a>
+    </div>
+</nav>
 
     <!-- Main Content -->
     <div class="max-w-2xl mx-auto mt-8 px-4">
