@@ -16,13 +16,10 @@
                 Logged in as: <strong>{{ Auth::user()->name }}</strong>
                 ({{ Auth::user()->role }})
             </span>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm">
+            <a href="{{ route('login') }}"
+                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm">
                     Logout
-                </button>
-            </form>
+            </a>
         </div>
     </nav>
 
