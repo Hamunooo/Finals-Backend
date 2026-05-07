@@ -4,56 +4,108 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
-
-
-    function index()
+    // Admin sees ALL products, Seller sees only THEIR OWN
+    public function index()
     {
-        $products = Products::all();
-        return response()->json($products);
+        if (Auth::user()->role === 'admin') {
+            $products = Products::with('seller')->get();
+        } else {
+            $products = Products::where('user_id', Auth::id())->get();
+        }
+        return view('products.index', compact('products'));
     }
 
+    // Show Add Product form
+    public function create()
+    {
+        return view('products.create');
+    }
 
-
-
-
-
-
-
-
-
-
-    //THESE 3 FUNCTIONS ARE ONLY ACCESSIBLE TO THE SELLER
-    function add(Request $request)
+    // Save new product to database
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
+            'name'     => 'required|string|max:255',
+            'price'    => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+            'image'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $products = Products::create($validated);
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')
+                                    ->store('products', 'public');
+        }
 
-        return response()->json($products, 201);
+        $validated['user_id'] = Auth::id();
+        Products::create($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product added successfully!');
     }
-    //THESE 3 FUNCTIONS ARE ONLY ACCESSIBLE TO THE SELLER
-    function update(Request $request)
+
+    // Show Edit Product form
+    public function edit($id)
     {
-        $find = Products::findOrFail($request->id);
+        $product = Products::findOrFail($id);
+
+        if (Auth::user()->role === 'seller' && $product->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('products.edit', compact('product'));
+    }
+
+    // Save updated product
+    public function update(Request $request, $id)
+    {
+        $product = Products::findOrFail($id);
+
+        if (Auth::user()->role === 'seller' && $product->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+
         $validated = $request->validate([
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
+            'name'     => 'required|string|max:255',
+            'price'    => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+            'image'    => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-        $find->update($validated);
-        return redirect('/edit_product');
+
+        if ($request->hasFile('image')) {
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $validated['image'] = $request->file('image')
+                                    ->store('products', 'public');
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product updated successfully!');
     }
 
-    //THESE 3 FUNCTIONS ARE ONLY ACCESSIBLE TO THE SELLER
-    function delete(int $id)
+    // Delete product
+    public function destroy($id)
     {
-        $find = Products::findOrFail($id);
-        $find->delete();
-        return redirect('/products-dashboard');
+        $product = Products::findOrFail($id);
+
+        if (Auth::user()->role === 'seller' && $product->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product deleted successfully!');
     }
 }
