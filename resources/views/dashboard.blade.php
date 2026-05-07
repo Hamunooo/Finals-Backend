@@ -11,6 +11,9 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+
+                <p>prevent the access of sellers to buyer's purchases dashboard</p>
+
             </div>
         </div>
     </div>
