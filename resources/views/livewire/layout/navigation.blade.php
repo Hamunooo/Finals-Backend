@@ -17,9 +17,9 @@ $logout = function (Logout $logout) {
             <div class="flex items-center gap-8">
                 <!-- Logo -->
                 <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo.png') }}"
-                         alt="Cartify"
-                         class="h-9 w-auto object-contain">
+                    <img src="{{ asset('images/logo2.png') }}"
+                        alt="Cartify"
+                        class="h-10 w-auto object-contain">
                     <span class="text-xl font-bold" style="color: #33c432;">Cartify</span>
                 </a>
 
