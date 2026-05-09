@@ -1,15 +1,17 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Purchases extends Model
-{
+class Purchases extends Model {
     protected $fillable = [
-        'id',
-        'user_id',
-        'product_id',
-        'quantity',
+        'user_id', 'product_id', 'quantity',
     ];
+
+    public function customer() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function product() {
+        return $this->belongsTo(Products::class, 'product_id');
+    }
 }
