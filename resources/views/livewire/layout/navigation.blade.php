@@ -30,11 +30,13 @@ $logout = function (Logout $logout) {
                        style="color: #ffffff; border-color: {{ request()->routeIs('dashboard') ? '#33c432' : 'transparent' }}">
                         Dashboard
                     </a>
+                     @if(Auth::user()->role === 'seller' || Auth::user()->role === 'admin')
                     <a href="{{ route('products.index') }}" wire:navigate
                        class="text-sm font-medium pb-1 border-b-2 transition"
                        style="color: #ffffff; border-color: {{ request()->routeIs('products*') ? '#33c432' : 'transparent' }}">
                         Products
                     </a>
+                    @endif
                     @if(auth()->user()->role === 'admin')
                     <a href="{{ route('users.index') }}" wire:navigate
                        class="text-sm font-medium pb-1 border-b-2 transition"

@@ -10,7 +10,7 @@
 <nav class="shadow px-6 py-4 flex justify-between items-center"
      style="background-color: #043044;">
     <div class="flex items-center gap-3">
-        <img src="{{ asset('images/logo.png') }}" class="h-10 w-auto">
+        <img src="{{ asset('images/logo2.png') }}" class="h-10 w-auto">
         <span class="text-xl font-bold" style="color: #33c432;">Cartify</span>
     </div>
     <div class="flex items-center gap-4">

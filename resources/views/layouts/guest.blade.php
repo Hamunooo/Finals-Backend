@@ -18,9 +18,7 @@
          style="background-color: #043044;">
         <div class="text-center">
             <!-- Your Canva Logo -->
-            <img src="{{ asset('images/logo.png') }}"
-                 alt="Cartify Logo"
-                 class="w-40 h-40 object-contain mx-auto mb-6">
+           
             <h1 class="text-4xl font-bold mb-4" style="color: #33c432;">Cartify</h1>
             <p class="text-lg mb-8" style="color: #ffffff; opacity: 0.8;">
                 Your one-stop online marketplace
@@ -52,9 +50,8 @@
 
         <!-- Mobile Logo -->
         <div class="lg:hidden text-center mb-8">
-            <img src="{{ asset('images/logo.png') }}"
-                 alt="Cartify Logo"
-                 class="w-20 h-20 object-contain mx-auto mb-2">
+            
+                
             <h1 class="text-2xl font-bold" style="color:#043044;">Cartify</h1>
         </div>
 
@@ -62,9 +59,8 @@
         <div class="w-full max-w-md rounded-2xl shadow-lg px-8 py-8"
              style="background-color: #ffffff; border: 1px solid #e5e7eb;">
             <div class="text-center mb-6">
-                <img src="{{ asset('images/logo.png') }}"
-                     alt="Cartify"
-                     class="w-16 h-16 object-contain mx-auto mb-3">
+              
+                    
                 <h2 class="text-2xl font-bold" style="color:#043044;">
                     Welcome to Cartify
                 </h2>

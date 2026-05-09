@@ -21,9 +21,7 @@
                             <span class="font-semibold uppercase">{{ Auth::user()->role }}</span>
                         </p>
                     </div>
-                    <img src="{{ asset('images/logo.png') }}"
-                         alt="Cartify"
-                         class="h-16 w-16 object-contain opacity-80">
+                   
                 </div>
             </div>
 
@@ -70,7 +68,7 @@
 
                 @if(Auth::user()->role === 'customer')
                 <!-- Browse Card -->
-                <a href="{{ route('products.index') }}"
+                <a href="{{ route('customer.browse') }}"
                    class="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition block">
                     <h4 class="font-semibold text-lg" style="color: #043044;">
                         Browse Products
