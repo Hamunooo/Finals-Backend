@@ -15,12 +15,14 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+    
 
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin-dashboard', function () { 
         return "Admin Only";
     });
+    
 });
 
 
@@ -31,6 +33,10 @@ require __DIR__ . '/auth.php';
 // Product routes - only logged in users can access
 Route::middleware(['auth'])->group(function () {
     Route::resource('products', ProductsController::class);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
 });
 // Customer routes
 Route::middleware(['auth'])->group(function () {
